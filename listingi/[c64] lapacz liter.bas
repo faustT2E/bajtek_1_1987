@@ -1,5 +1,5 @@
 10 GOSUB5000
-1000 LF$=""
+1000 LF$="{right*20}"
 1010 DW$= "{up*22}" 
 1020 HM$=CHR$(19)
 1030 M1$=CHR$(171)+CHR$(178)+CHR$(177)+CHR$(179)
@@ -15,8 +15,8 @@
 1510 GOSUB2000 
 1520 SC=SC+C%:C%=0 
 1530 NEXT
-1540 PRINTHM$;DW$;"{down}TWO{up}{left}.{down}J WYNIK: ";SC:IF SC>HS THEN HS=SC
-1545 PRINTHM$;LF$;DW$;"{down}NAJLEPSZY WYNIK: ";HS; 
+1540 PRINTHM$;DW$;"{down}two{up}{left}.{down}j wynik: ";SC:IF SC>HS THEN HS=SC
+1545 PRINTHM$;LF$;DW$;"{down}najlepszy wynik: ";HS; 
 1550 WAIT 198,1
 1560 SC=0:X=X+1:IFX>11THENX=11 
 1570 GOTO1050
