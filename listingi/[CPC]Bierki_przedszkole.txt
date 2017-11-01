@@ -1,0 +1,63 @@
+1 REM ************ BIERKI *************
+9 REM ******** inicjalizacj* ********
+10 DIM kupka(3)
+20 LET kupka(1)=3 
+30 LET kupka(2)=4
+40 LET kupka(3)=5
+50 LET ruch=1
+99 REM ********* kto zaczyna? *********
+100 PRINT "Kto zaczyna?"
+110 PRINT 'Ty czy ja - (t/j)?' 
+120 INPUT odp$
+130 IF odp$<>"t" AND odp$<>"j" THEN GOTO 120
+140 IF odp$="j" THEN LET ruch=-1
+199 REM ******* czy koniec gry? *******
+200 IF kupka(1)=0 AND kupka(2)=0 AND kupka(3)=0 THEN GOTO 900
+299 REM ***** rysowanie patyczkow *****
+300 FOR i=1 TO 3
+310    FOR j=1 TO kupka(i) 
+320     PRINT "I";
+330    NEXT j
+340    FOR j=1 TO 7-kupka(i)
+350      PRINT " ";
+360    NEXT j
+370 NEXT i
+380 PRINT
+399 REM ********* czyj ruch? **********
+400 LET ruch=ruch*(-1)
+410 IF ruch=1 THEN GOTO 800
+420 PRINT "Moj ruch:"
+499 REM ******* ruch komputera *******
+500 FOR x=1 TO 3
+510    FOR y=1 TO 3
+520      IF y=x THEN GOTO 620
+530      FOR z=1 TO 3
+540        IF z=x OR z=y THEN GOTO 610
+550        IF kupka(x)=0 AND kupka(y)=0 THEN LET kupka(z)=0:LET zmiana=1
+560        IF kupka(x)=kupka(y) AND kupka(x)<>0 AND kupka(z)<>0 THEN LET kupka(z)=0 : LET zmiana=1
+570 IF kupka(x)=0 AND kupka(y)> kupka(z) THEN LET kupka(y)= kupka(z): LET zmiana=1
+580        IF kupka(x)=1 AND kupka(y)=2 AND kupka(z)>3 THEN LET kupka(z)=3: LET zmiana=1
+590        IF kupka(x)=1 AND kupka(y)=3 AND kupka(z)>2 THEN LET kupka(z)=2: LET zmiana=1
+600        IF kupka(x)=3 AND kupka(y)=2 AND kupka(z)>1 THEN LET kupka(z)=1: LET zmiana=1
+610       NEXT z
+620     NEXT y
+630 NEXT x
+640 IF zmiana=1 THEN GOTO 700
+650 LET i=INT(RND(1)*3)+1
+660 IF kupka(i)=0 THEN GOTO 640
+670 LET j=INT(RND(1)*2)+1
+680 LET kupka(i)=kupka(i)-j
+690 IF kupka(i)<0 THEN LET kupka(i)=0
+700 LET zmiana=0
+710 GOTO 200
+799 REM ********* ruch gracza *********
+800 PRINT "Ktora kupka?"
+810 INPUT i
+820 PRINT "Ile patyczkow?"
+830 INPUT p
+840 IF i<>1 AND i<>2 AND i<>3 OR p<1 OR p<>INT(p) OR kupka(i)<p THEN PRINT "Oszukujesz!!!":GOTO 810
+850 LET kupka(i)=kupka(i)-p
+860 GOTO 200
+899 REM ********* koniec gry *********
+900 IF ruch=1 THEN PRINT "Wygrales!": END
+910 PRINT "Ja wygralem!": END
